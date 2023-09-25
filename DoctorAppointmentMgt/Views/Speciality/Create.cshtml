@@ -1,0 +1,20 @@
+﻿@model Speciality
+<form method="post">
+    <div class="border pad-3 mt-4">
+        <div class="row pb-3">
+            Create Speciality
+        </div>
+
+        <div class="mb-3">
+            @*<label asp-for="name"></label>
+            <input asp-for="name" class="form-control" />*@
+            <label asp-for="SpecialityName"></label>
+            <input asp-for="SpecialityName" class="form-control" />
+
+
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Create </button>
+        <a asp-controller="Speciality" asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>

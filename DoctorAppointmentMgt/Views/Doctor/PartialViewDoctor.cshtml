@@ -1,0 +1,35 @@
+﻿@model List<Doctor>
+@{
+}
+<form method="post" class="d-flex" asp-controller="Login" asp-action="Search">
+    <select name="search" id="search" class="form-control me-2" value="Search Speciality">
+        <option>Search Speciality</option>
+
+        @* @foreach (var data in Model)
+        {
+        <option name="spname" class="form-control">@data.Speciality</option>
+
+        }*@
+        
+        <option name="spname" class="form-control">Cardiac Sciences</option>
+        <option name="spname" class="form-control">Haematology</option>
+        <option name="spname" class="form-control">Paediatric Haematology and BMT</option>
+        <option name="spname" class="form-control">Dermatology</option>
+        <option name="spname" class="form-control">Diabetology/Endocrinology</option>
+        <option name="spname" class="form-control">ENT</option>
+        <option name="spname" class="form-control">Gastroenterology & Hepatobiliary Science</option>
+        <option name="spname" class="form-control">Infectious Diseases</option>
+        <option name="spname" class="form-control">Internal Medicines</option>
+        <option name="spname" class="form-control">Mental Health And Behavioural Science</option>
+        <option name="spname" class="form-control">Nephrology</option>
+        <option name="spname" class="form-control">Neurology</option>
+
+
+
+    </select>
+
+    <input class="form-control me-2" type="text" name="name" placeholder="Search Doctor" aria-label="Search">
+    <button type="submit" class="btn btn-outline-success">Search</button>
+
+
+</form>

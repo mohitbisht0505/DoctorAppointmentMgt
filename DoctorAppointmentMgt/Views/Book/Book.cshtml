@@ -1,0 +1,132 @@
+﻿@model Book
+@{
+    //var name = ToString(HttpContext.Session.GetString("patientName"));
+    var patientName = Context.Session.GetString("patientName");
+    var patientMobile = Context.Session.GetString("patientMobile");
+    var patientEmail = Context.Session.GetString("patientEmail");
+    var doctorName = Context.Session.GetString("name");
+    var speciality = Context.Session.GetString("speciality");
+    var fees = Context.Session.GetString("fees");
+    int durationOfSession = 0;
+    int gapBetweenSessions = 30;
+    var start = Context.Session.GetString("startTime"); 
+    var end = Context.Session.GetString("endTime");
+    var startDay = DateTime.Now.AddDays(1);
+   var  gap = 1;
+    var endDay = DateTime.Now.AddMonths(1);
+    }
+    <style>
+        .active,.active1{
+        background-color: #3A833A;
+        color:aliceblue;
+
+        }
+    </style>
+   
+<!-- Section: Design Block -->
+<section class="">
+  <!-- Jumbotron -->
+  <div class="px-3 py-3 px-md-5 text-center text-lg-start" style="background-color: hsl(0, 0%, 96%)">
+    <div class="container">
+      <div class="row gx-lg-5 align-items-center">
+        <div class="col-lg-6 mb-2 mb-lg-0">
+            
+          <h1 class="my-4 display-3 fw-bold ls-tight">
+            Scheduled Appointment <br />
+                        <span class="text-primary">@doctorName</span>
+          </h1>
+                    <p>@speciality</p>
+          </div>
+        <div class="col-lg-6 mb-5 mb-lg-0">
+          <div class="card">
+            <div class="card-body py-3 px-md-5">
+              <form method="post">
+                <!-- 2 column grid layout with text inputs for the first and last names -->
+                <div class="row">
+                    <div class="form-outline mb-4">
+                    <label class="form-label" for="form3Example1" >Your Name</label>
+                    <input type="text" asp-for="PatientName" name="PatientName" value="@patientName" class="form-control"  />
+                    </div>
+                  
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="form3Example2">Mobile Number</label>
+                       <input type="number" asp-for="PatientMobile" name="PatientMobile" value="@patientMobile"  class="form-control"  />
+                    </div>
+                  
+                </div>
+
+                <!-- Email input -->
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="email">Email address</label>
+                    <input type="email" asp-for="Email" name="Email" value="@patientEmail" class="form-control" />
+                </div>
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="name">Doctor name</label>
+                   <input type="text" asp-for="DoctorName" name="DoctorName" value="@doctorName" class="form-control"  />
+                </div>
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="fees">Appointment fees</label>
+                    <input type="number" asp-for="Fees" name="Fees" value="@fees" class="form-control"  />
+                    </div>
+                <div class="form-outline mb-4" >
+                  <label class="form-label" for="date">Select Appointment date</label>
+
+                 <div class="grid" id="myDIV" style="display:flex; overflow-x: scroll;">
+                      @for (DateTime day = startDay; day <= endDay; day = day.AddDays(durationOfSession + gap))
+                     {
+                      <input type="button" asp-for="AppointmentDate" name="AppointmentDate" class="button g-col-6 g-col-md-3 btn btn-outline-success  pxy-2 m-1 select-input"
+                     data-toggle="button"  aria-pressed="true" value="@day.ToString("dd-MM \n dddd")">
+                     }
+                     <script>
+                     var header = document.getElementById("myDIV");
+                     var btns = header.getElementsByClassName("button");
+                     for (var i = 0; i < btns.length; i++) {
+                     btns[i].addEventListener("click", function () {
+                     var current = document.getElementsByClassName("active")
+                     if (current.length > 0) {
+                     current[0].className = current[0].className.replace(" active", "");
+                     }
+                     this.className += " active";
+                     });
+                     }
+                     </script>
+                      </div>
+                                    
+                  </div>
+                <div class="form-outline mb-4">
+                 <label class="form-label" for="time">Select Time</label>                 
+                 <div class="grid" id="my">
+                 @for (DateTime date = DateTime.Parse(start); date <= DateTime.Parse(end); date = date.AddMinutes(durationOfSession + gapBetweenSessions))
+                 {
+                 <input type="button" asp-for="AppointmentTime" name="AppointmentTime" class="sel g-col-6 g-col-md-3 btn btn-outline-success btn-md  pxy-1 m-1 select-input"
+                 data-toggle="button" aria-pressed="true"  value="@date.ToString("hh: mm tt")">               
+                 }
+                 </div>
+                 <script>
+                 var header = document.getElementById("my");
+                 var btns = header.getElementsByClassName("sel");
+                 for (var i = 0; i < btns.length; i++) {
+                 btns[i].addEventListener("click", function () {
+                 var current = document.getElementsByClassName("active1");
+                 if (current.length > 0) {
+                 current[0].className = current[0].className.replace(" active1", "");
+                 }
+                 this.className += " active1";
+                 });
+                 }
+                 </script>
+                 
+                 <small>Doctor available between @start to @end</small>
+                </div>
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-primary btn-block mb-4" asp-controller="Book" asp-action="BookApp">Book</button>
+                </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Jumbotron -->
+</section>
+<!-- Section: Design Block -->

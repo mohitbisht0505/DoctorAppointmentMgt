@@ -1,0 +1,82 @@
+﻿@model List<Doctor>
+<div class="container p-1">
+    <div class="row p-1">
+        <div class="col-6">
+            <h2 class="text-primary">
+                Doctors
+            </h2>
+        </div>
+        <div class="col-6">
+            <a asp-controller="Doctor" asp-action="Create" class="btn btn-info">Add New Doctor</a>
+        </div>
+    </div>
+</div>
+<form method="post">
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th> Id </th>
+            <th> Doctor Name </th>
+            <th> Age </th>
+            <th> Gender</th>
+            <th> Experience </th>
+            <th> Fees</th>
+            <th> Speciality</th>
+            <th>Starting Time</th>
+            <th>Ending Time</th>
+            <th>Action</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.DoctorId
+                    </td>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.Age
+                    </td>
+                    <td>
+                        @item.Gender
+                    </td>
+                    <td>
+                        @item.Experience
+                    </td>
+                    <td>
+                        @item.Fees
+                    </td>
+                    <td>
+                        @item.Speciality
+                    </td>
+                    <td>
+                        @item.StartTime
+                    </td>
+                    <td>
+                            @item.EndTime
+                    </td>
+                    <td>
+                      <button class="btn btn-outline-warning" type="submit" asp-route-id="@item.DoctorId" asp-controller="Doctor" asp-action="Edit">Edit</button>
+                      @*<button type="submit" value="Delete" class="btn btn-danger" asp-controller="Patient" asp-action="OnDelete">Delete</button>*@
+                     <button type="submit" class="btn btn-outline-success" asp-route-id="@item.DoctorId" asp-controller="Doctor" asp-action="Delete">Delete</button>
+
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td>No Data</td>
+            </tr>
+        }
+    </tbody>
+</table>
+</form>
+

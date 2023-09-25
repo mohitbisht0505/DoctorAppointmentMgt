@@ -1,0 +1,96 @@
+﻿@model Patient 
+@{
+    var list=TempData["error"];
+    var data = TempData["admin"];
+    var emailError=TempData["emailError"];
+    var passwordError=TempData["passwordError"];
+    var bothError = TempData["invalid"];
+    var patientLogin=TempData["patientlogin"];
+}
+
+<style>
+    .divider:after,
+.divider:before {
+content: "";
+flex: 1;
+height: 1px;
+background: #eee;
+}
+.h-custom {
+height: calc(100% - 73px);
+}
+h1{
+    font-size:4rem;
+}
+
+</style>
+<section class="vh-auto">
+    <div class="container-fluid h-custom">
+        @if (data != null)
+        {
+            <h1 class="mb-4 text-uppercase text-center">@data Login</h1>
+        }
+        else
+        {
+            <h1 class="mb-4 text-uppercase text-center">Patient Login</h1>
+        }
+        @if (list!=null)
+        {
+            <h4 class ="mb-4 text-uppercase text-end">@list</h4>
+        }
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-md-9 col-lg-6 col-xl-5">
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+                     class="img-fluid" alt="Sample image">
+            </div>
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                <form method="post">
+                    <!-- Email input -->
+
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="email">Email address</label>
+                        <input type="email"  class="form-control form-control-lg" asp-for="Email"
+                               placeholder="Enter a valid email address" />
+                               @if(emailError!=null){<p>@emailError</p>}
+                               
+                    </div>
+
+                    <!-- Password input -->
+                    <div class="form-outline mb-3">
+                        <label class="form-label" for="form3Example4">Password</label>
+                        <input type="password" class="form-control form-control-lg" asp-for="Password"
+                               placeholder="Enter password" />
+                       @* @if (passwordError != null){<p>@passwordError</p>}*@
+
+                    </div>
+                   @if(bothError!=null){<p>@bothError</p>}
+
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a class="text-body" asp-controller="Login" asp-action="AdminLogin">Admin Login</a>
+                        <a href="#!" class="text-body">Forgot password?</a>
+                    </div>
+
+                    <div class="text-center text-lg-start mt-4 pt-2">
+                        @if (data != null)
+                        {
+                            <button type="submit" class="btn btn-primary btn-lg" asp-controller="Login" asp-action="AdminLogin"
+                                style="padding-left: 2.5rem; padding-right: 2.5rem;">
+                                Login
+                            </button>
+                        }else{
+                        <button type="submit" class="btn btn-primary btn-lg" asp-controller="Login" asp-action="Login"
+                                style="padding-left: 2.5rem; padding-right: 2.5rem;">
+                            Login
+                        </button>
+                        }
+                        <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="#!"class="link-danger">Register</a>
+                        </p>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    
+</section>
